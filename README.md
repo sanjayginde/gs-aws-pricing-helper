@@ -1,5 +1,8 @@
 AWS Pricing Helper (Google Spreadsheet Add-on)
 ==========
+# Note
+This is a fork from https://github.com/marcy-terui/gs-aws-pricing-helper which I'm using to experiment with. Use at your own risk, prefer the original :)
+
 # Overview
 
 AWS Pricing Helper will help you estimate pricing for your AWS resources.
