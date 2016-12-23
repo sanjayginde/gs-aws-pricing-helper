@@ -7,8 +7,8 @@ function get_ebs_price(region, type_name, sub_price) {
       var types = regions[i]['types'];
       for (var j = 0; j < types.length; j++) {
         if(types[j]['name'] == type_name) {
-          if(!sub_price) { return types[j]['values'][0]['prices']['USD']; }
-          else { return types[j]['values'][1]['prices']['USD']; }
+          if(!sub_price) { return parseFloat(types[j]['values'][0]['prices']['USD']); }
+          else { return parseFloat(types[j]['values'][1]['prices']['USD']); }
         }
       }
     }

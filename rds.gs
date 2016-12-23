@@ -10,7 +10,7 @@ function get_rds_od_price(type, region, url) {
         for (var k = 0; k < tiers.length; k++) {
           var name = tiers[k]['name'];
           if(name == type) {
-            return tiers[k]['prices']['USD'];
+            return parseFloat(tiers[k]['prices']['USD']);
           }
         }
       }
@@ -77,16 +77,16 @@ function get_rds_old_ri_price(type, region, term, is_hourly, is_multi, url) {
             for (var l = 0; l < valueColumns.length; l++) {
               var priceName = valueColumns[l]['name'];
               if(priceName == "yrTerm1" && term == 1 && !is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if((priceName == "yrTerm1Hourly" || priceName == "yearTerm1Hourly") && term == 1 && is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if(priceName == "yrTerm3" && term == 3 && !is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if((priceName == "yrTerm3Hourly" || priceName == "yearTerm3Hourly") && term == 3 && is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
             }
           }

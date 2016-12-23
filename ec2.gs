@@ -11,7 +11,7 @@ function get_ec2_od_price(size, region, os, url) {
             var val = sizes[k]['valueColumns'];
             for (var k = 0; k < val.length; k++) {
               if (val[k]['name'] == os) {
-                return val[k]['prices']['USD']
+                return parseFloat(val[k]['prices']['USD'])
               }
             }
           }
@@ -78,17 +78,40 @@ function get_ec2_old_ri_price(type, region, term, is_hourly, url) {
             for (var l = 0; l < valueColumns.length; l++) {
               var priceName = valueColumns[l]['name'];
               if(priceName == "yrTerm1" && term == 1 && !is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if(priceName == "yrTerm1Hourly" && term == 1 && is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if(priceName == "yrTerm3" && term == 3 && !is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
               if(priceName == "yrTerm3Hourly" && term == 3 && is_hourly) {
-                return valueColumns[l]['prices']['USD'];
+                return parseFloat(valueColumns[l]['prices']['USD']);
               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function get_ec2_specs(size, region, field, url) {
+  var data = eval(getPriceData(url));
+  var regions = data['config']['regions'];
+  for (var i = 0; i < regions.length; i++) {
+    if(regions[i]['region'] == getRiRegion(region)) {
+      var instypes = regions[i]['instanceTypes'];
+      for (var j = 0; j < instypes.length; j++) {
+        sizes = instypes[j]['sizes']
+        for (var k = 0; k < sizes.length; k++) {
+          if(sizes[k]['size'] == size) {
+            var val = sizes[k][field];
+            if (isNaN(val)) {
+              return val;
+            } else {
+              return parseFloat(val);
             }
           }
         }
