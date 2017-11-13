@@ -25,7 +25,7 @@ function getOdRegion(region) {
 
 function getRiRegion(region) {
   if(region) { return region; }
-  return "ap-northeast-1";
+  return "us-east-1";
 }
 
 function onOpen(e){
@@ -42,19 +42,17 @@ function showSideManual() {
   ui.showSidebar(html);
 }
 
+
 function getPriceData(url) {
   var key = Utilities.base64Encode(url);
-  var cacheHandler = new cCacheHandler.CacheHandler(600,null,false,false,CacheService.getPublicCache(), key);
-//  var cache = CacheService.getPublicCache();
-//  var cached = cache.get(key);
-//  if (cached == null) {
-//    cached = UrlFetchApp.fetch(url).getContentText();
-//    cache.put(key, cached);
-//  }
-  var cached = cacheHandler.getCache(key);
-  if (cached == null) {
+
+  var cache = CacheService.getPublicCache();
+  var cached = cache.get(key);
+
+  if (!cached) {
     cached = UrlFetchApp.fetch(url).getContentText();
-    cacheHandler.putCache(cached, key);
+    cache.put(key, cached);
   }
+
   return cached;
 }
